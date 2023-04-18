@@ -1,0 +1,13 @@
+Ограничение на подключение USB флешек в AstraLinux
+1. Идем в /etc/udev/rules.d
+2. Создаем файл 99-rem-unauth-usb.rules (имя файла можете и сами придумать, но соблюдайте правила udev)
+3. Пишем в файл:
+ACTION!="add", GOTO="dont_remove_usb"
+ENV{ID_BUS}!="usb", GOTO="dont_remove_usb"
+ENV{ID_TYPE}!="disk", GOTO="dont_remove_usb"
+ENV{ID_SERIAL_SHORT}=="008D7DC64", GOTO="dont_remove_usb"
+ENV{ID_BUS}=="usb", RUN+="/bin/sh -c 'echo 1 > /sys$DEVPATH/device/delete'"
+LABEL="dont_remove_usb"
+
+Как получить серийный номер usb накопителя?
+udevadm info -q all -n /dev/sdb1
