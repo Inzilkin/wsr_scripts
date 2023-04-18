@@ -1,0 +1,38 @@
+Остановим процесс выполнив команду от root.
+iwtm@iwtm:~$ sudo -i
+root@iwtm:~# iwtm stop
+
+Это нужно отредактировать:
+root@iwtm:~# nano /opt/iw/tm5/etc/warpd.conf
+root@iwtm:~# nano /opt/iw/tm5/etc/image2text_fre.conf
+root@iwtm:~# nano /opt/iw/tm5/etc/sample_compiler.conf
+root@iwtm:~# nano /opt/iw/tm5/etc/config-perm/bookworm/ocr_custom.xml
+
+Перекинуть лицензию через WinSCP на машину.
+Скопировать её сюда: /var/lib/ABBYY/SDK/11/Licenses/
+root@iwtm:/home/iwtm# cp SWRO-1121-1004-3071-3183-5772.ABBYY.LocalLicense  /var/lib/ABBYY/SDK/11/Licenses/
+
+Изменить права на файл и разрешить с ним все операции(не обязательно последнее)
+root@iwtm:/home/iwtm# cd  /var/lib/ABBYY/SDK/11/Licenses/
+root@iwtm:/var/lib/ABBYY/SDK/11/Licenses# chown iwtm:iwtm SWRO-1121-1004-3071-3183-5772.ABBYY.LocalLicense
+root@iwtm:/var/lib/ABBYY/SDK/11/Licenses# chmod 777 SWRO-1121-1004-3071-3183-5772.ABBYY.LocalLicense
+
+Сюда нужно перейди удалить файл и создать линк на него:
+root@iwtm:/opt/iw/tm5/etc# cd /opt/iw/tm5/bin/
+root@iwtm:/opt/iw/tm5/bin# rm -rf iw_image2text
+root@iwtm:/opt/iw/tm5/bin# ln -s iw_image2text_fre iw_image2text
+
+Запустим процесс выполнив команду от root.
+root@iwtm:~# iwtm start
+(!) Требуется создать в IWDM на HTTP(S).
+правило 
+
+Как редактировать конфиги?
+
+root@iwtm:~# nano /opt/iw/tm5/etc/warpd.conf
+root@iwtm:~# nano /opt/iw/tm5/etc/image2text_fre.conf
+root@iwtm:~# nano /opt/iw/tm5/etc/sample_compiler.conf
+root@iwtm:~# nano /opt/iw/tm5/etc/config-perm/bookworm/ocr_custom.xml
+
+
+
